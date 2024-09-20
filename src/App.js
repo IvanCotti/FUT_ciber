@@ -84,7 +84,7 @@ export default function App() {
   return (
     <center className='f-row pa-2 justify-center align-center h-100 w-100'>
 
-      <Box className="f-col justify-center scroll-2 h-100 " sx={{width:"60%"}}>
+      <Box className="container f-col justify-center scroll-2 h-100">
         <Card className="mb-2" sx={{height: '15em'}}>
           <div className='cardHeader justify-center'>
             <span>Lugar</span>

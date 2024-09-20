@@ -628,3 +628,71 @@ h1,h2,h3,.title {
   text-align: center;
   width: 50%;
 }
+
+.container{
+  width: 60%;
+}
+
+@media (max-width: 768px) {
+  .f-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    padding: 0;
+    width: 100%;
+  }
+
+  .cardHeader {
+    text-align: center;
+  }
+
+  .cardContent {
+    text-align: center;
+  }
+
+  .w-50 {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .f-gap {
+    gap: 0.5em;
+  }
+
+  .pa-1 {
+    padding: 0.5em;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .my-1 {
+    margin: 0.5em 0;
+  }
+
+  iframe {
+    height: 250px;
+  }
+
+  .pa-2 {
+    padding: 1em;
+  }
+
+  .mb-2 {
+    margin-bottom: 1em;
+  } 
+  .stats {
+    font-size: 0.8em;
+  }
+
+  .w-100 {
+    width: -webkit-fill-available !important;
+  }
+
+  button {
+    font-size: 0.9em;
+  }
+}
