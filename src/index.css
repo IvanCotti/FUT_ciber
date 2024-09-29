@@ -1,25 +1,10 @@
 :root {
-  --colorA: #1b4b2dd1;
+  --colorRed: #961615;
+  --colorGold: #efdd91;
   --colorB: #2d68625c;
-  --colorC: #21222f;
+  --colorCard: #21222f;
   --colorD: #b6ecb7;
-  --colorH: #348646;
-  --colorTransparent: #7bff6f20;
-  
-  --colorSelector: #191e35;
-  
-  --colorError: #b41818;
-  --colorSuccess: #2abe28;
 }
-
-/* body{
-  --colorA: #444b1bd1;
-  --colorB: #2d68625c;
-  --colorC: #212f2d;
-  --colorD: #fdcf4b;
-  --colorH: #297b64;
-  --colorTransparent: #35ffd020;
-} */
 
 body {
   margin: 0;
@@ -163,7 +148,7 @@ h1,h2,h3,.title {
 /*■■■ ■■ ■ Modificaciones MUI ■ ■■ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 
 .MuiCard-root {
-  background-color: var(--colorC) !important;
+  background-color: var(--colorCard) !important;
   box-shadow: #0000002e 0px 3px 8px 0px !important;
 }
 
@@ -176,7 +161,7 @@ h1,h2,h3,.title {
 .MuiAccordion-root{ margin: 0 !important; }
 
 .MuiAutocomplete-listbox{
-  background-color: var(--colorC) !important;
+  background-color: var(--colorCard) !important;
 }
 .MuiMenu-paper .MuiList-root li, .MuiAutocomplete-popper li{
   font-family: 'TitleFont',sans-serif;
@@ -306,7 +291,6 @@ h1,h2,h3,.title {
   pointer-events: none;
   cursor: default;
 }
-.bgSection { background: #00000090 !important; }
 .white-nowrap { white-space: nowrap !important; }
 .z-100 { z-index: 100 !important; }
 .no-scroll { overflow: hidden; }
@@ -364,9 +348,8 @@ h1,h2,h3,.title {
 .f-gap-1{ gap: 1em !important; }
 .f-gap-2{ gap: 2em !important; }
 
-.f-flex{
-  flex: 1 !important;
-}
+.flex-1{ flex: 1 !important; }
+.flex-2{ flex: 2 !important; }
 
 .justify-start{ justify-content: flex-start !important;}
 .justify-end { justify-content: flex-end !important; }
@@ -554,24 +537,6 @@ h1,h2,h3,.title {
 .text-center{ text-align: center !important; }
 .text-end{ text-align: end !important; }
 
-.closeIcon:hover{
-  cursor: pointer;
-  transform: scale(1.35);
-  filter: brightness(1.1);
-}
-
-.largeText {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.colorSuccess{ color: var(--colorSuccess) !important; }
-.colorError{ color: var(--colorError) !important; }
-.colorWhite { color: white !important; }
-.colorGreen { color: var(--colorD) !important; }
-.colorBlack { color: black !important; }
-
 /*■■■ ■■ ■ COMPONENTES CUSTOM ■ ■■ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 
 .container .header{
@@ -588,22 +553,6 @@ h1,h2,h3,.title {
   margin-bottom: 0.5em;
 }
 
-.chip {
-  display: flex;
-  align-items: center;
-  background-color: var(--colorTransparent);
-  width: max-content;
-  padding: 0 1em;
-  border-radius: 1em;
-  font-size: 0.9rem;
-}
-
-.chip div:first-child {
-  display: flex;
-  margin-right: 0.5em;
-  border-right: 2px solid #FFFFFF30;
-}
-
 .dataList {
   overflow: hidden;
   border-radius: 0.5em;
@@ -613,12 +562,22 @@ h1,h2,h3,.title {
 .dataList section:nth-child(odd) { background-color: #0e0e0e50; }
 .dataList section{  padding: 0.2em 0.3em 0.2em 0.3em; }
 
+
+/*■■■ ■■ ■ FUT Ciber ■ ■■ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
+.container{ width: 50%; }
+.theme-dark div{  color: #ffed9f !important; }
+.theme-light div{ color: #443100 !important; }
+
 .stats div section{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   gap: 3px;
+}
+.dataList section:hover{
+  cursor: pointer;
+  background-color: #FFFFFF20;
 }
 .stats div section div:nth-child(2){
   font-weight: 100;
@@ -629,15 +588,31 @@ h1,h2,h3,.title {
   width: 50%;
 }
 
-.container{
-  width: 60%;
+#FUT_logo img{
+  max-width: 500px;
 }
 
-.theme-dark div{ 
-  color: #ffed9f !important;
+.closeIcon:hover{
+  opacity: 0.7;
+  cursor: pointer;
 }
-.theme-light div{
-  color: #443100 !important;
+
+.custom-btn.btn-2{
+  color: var(--colorGold) !important;
+  background-color: var(--colorRed) !important;
+}
+.custom-btn:hover{
+  filter: brightness(1.2);
+}
+
+.label{
+  background: repeating-linear-gradient(45deg, #3d7131, #264044 150px);
+  border-radius: 0.5em;
+  border: 3px solid;
+  color: var(--colorD);
+  font-weight: bold;
+  font-size: 1.5em;
+  font-family: monospace;
 }
 
 @media (max-width: 768px) {
@@ -657,6 +632,9 @@ h1,h2,h3,.title {
 
   .cardContent {
     text-align: center;
+    padding: 0.5em;
+    max-height: 70%;
+    overflow: hidden;
   }
 
   .w-50 {
@@ -700,5 +678,9 @@ h1,h2,h3,.title {
 
   button {
     font-size: 0.9em;
+  }
+
+  #FUT_logo img{
+    width: 90vw;
   }
 }

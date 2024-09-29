@@ -4,6 +4,10 @@ import {
   Person as JugadorIcon,
   Shuffle as RandomIcon,
   QueryStats as IntelIcon,
+  Groups as EquipoIcon,
+  ArrowBack as AtrasIcon,
+  LocationOn as LugarIcon,
+  Close as CloseIcon
 } from '@mui/icons-material';
 
 export default function App() {
@@ -11,14 +15,24 @@ export default function App() {
   const [equipos, setEquipos] = useState(null)
   const [jugadorActivo, setJugadorActivo] = useState(playerTemplate)
   const [balanced, setBalanced] = useState(null)
+  const [lugar, setLugar] = useState(false)
 
   useEffect(() => {
     if(equipos !== null){
-      if( equipos[0].promedio === equipos[1].promedio ){
-        setBalanced(true)
-      }
-      else{
-        setBalanced(false)
+      const prom1 = equipos[0].promedio
+      const prom2 = equipos[1].promedio
+      if(prom1 !== null || prom2 !== null){
+        if(prom1 === prom2) {
+          setBalanced('Perfectamente Balanceado')
+        } else if(Math.abs(prom1 - prom2) <= 1) {
+          setBalanced('Balanceado')
+        } else if(Math.abs(prom1 - prom2) <= 2) {
+          setBalanced('Poco Balanceado')
+        } else {
+          setBalanced(null)
+        }
+      } else {
+        setBalanced(null)
       }
     }
   }, [equipos]);
@@ -74,11 +88,11 @@ export default function App() {
         [
           {
             lista: equipo.slice(0, equipo.length /2 ),
-            promedio: 0
+            promedio: null
           },
           {
             lista: equipo.slice(equipo.length /2 ),
-            promedio: 0
+            promedio: null
           }
         ]
       )
@@ -89,56 +103,41 @@ export default function App() {
     setJugadorActivo(jugador)
   }
 
-  const randomStat = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min
+  const randomStat = () => {
+    return Math.floor(Math.random() * ((jugadorActivo.puntuacion + 5) - 50 + 1)) + 50
   }
 
   const resetJugadorActivo = () => {
-    setJugadorActivo(playerTemplate)
+    setJugadorActivo({...playerTemplate, image: jugadorActivo.image})
   }
 
   return (
-    <center className='f-row pa-2 justify-center align-center h-100 w-100'>
+    <center className='f-row pa-1 justify-center align-center h-100 w-100'>
 
       <Box className="container f-col justify-center scroll-2 h-100">
 
         <Collapse in={equipos !== null}>
-          <Card className="mb-2" sx={{height: '15em'}}>
-            <div className='cardHeader justify-center'>
-              <span>Lugar</span>
-            </div>
-            <div className='cardContent'>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6569.2387308014495!2d-58.37842266011174!3d-34.58849659753442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccab2276ca0af%3A0x4173ec14f086f82!2sF%C3%BAtbol%20Retiro!5e0!3m2!1ses-419!2sar!4v1726666712925!5m2!1ses-419!2sar"
-                height="100%"
-                title="iframe"
-                style={{ border: '0', width: '100%' }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </Card>
 
-          <Grow in={ balanced }>
-            <Box className='pa-1 w-100 my-1'>
-              Balanceado
+          <Grow in={ balanced } unmountOnExit>
+            <Box className='label pa-1 w-fill my-1'>
+              { balanced }
             </Box>
           </Grow>
 
-          <div className='f-row mb-2 f-gap'>
+          {/* ■■■■■■■■■■■■■■■■■■ Tablas ■■■■■■■■■■■■■■■■■■ */}
+          <div className='f-row f-gap'>
           {
             equipos && equipos.map((equipo, num) => (
               <Card className="w-50" sx={{minHeight: '10em'}}>
                 <div className='cardHeader justify-space-between'>
                   <span>Equipo {num + 1}</span>
-                  <span>{equipo.promedio}</span>
+                  <span>{ equipo.promedio}</span>
                 </div>
                 <div className='cardContent'>
                   <div className='dataList h-100'>
                     { 
                       equipo.lista.map((j,i) => (
-                      <section className='f-row p-relative' onClick={()=>llenarCard(j)}>
+                      <section key={'user'+i} className='f-row p-relative' onClick={()=>llenarCard(j)}>
                         <div className='f-row align-center w-10 mr-1'> <JugadorIcon/></div>
                         <div> {j.nombre} </div>
                       </section>
@@ -152,28 +151,69 @@ export default function App() {
           </div>
         </Collapse>
 
-        <Grow in={equipos == null}>
-          <Box>
-            { equipos == null && <img src='/img/fut_logo.png'/> }
+        <Grow in={ equipos == null } unmountOnExit>
+          <Box id='FUT_logo'>
+            { equipos == null && <img className='a-pulse w-100' src='/img/fut_logo.png' alt="logo FUT"/> }
           </Box>
         </Grow>
+        
+        <Grow in={lugar}  unmountOnExit>
+          <Card sx={{height: lugar ? '15em' : '0'}}>
+            <div className='cardHeader justify-space-between px-2'>
+              <div>Lugar</div>
+              <CloseIcon className='closeIcon' onClick={() => setLugar(false)}/>
+            </div>
+            <div className='cardContent'>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6569.2387308014495!2d-58.37842266011174!3d-34.58849659753442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccab2276ca0af%3A0x4173ec14f086f82!2sF%C3%BAtbol%20Retiro!5e0!3m2!1ses-419!2sar!4v1726666712925!5m2!1ses-419!2sar"
+                height="100%"
+                title="iframe"
+                style={{ border: '0', width: '100%' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </Card>
+        </Grow>
 
-        <Card className='f-row f-gap mt-2 pa-1'>
-          <Button variant="contained" className="w-100" onClick={()=>generarEquipos(true)}>
-            <IntelIcon/> <span className='title bold w-100'> Generar Inteligente </span>
-          </Button>
-          <Button variant="contained" color="success" className="w-100" onClick={()=>generarEquipos(false)}>
-            <RandomIcon/> <span className='title bold w-100'> Generar Aleatorio</span>
-          </Button>
+        <Card className='f-col f-gap mt-2 pa-1'>
+
+          <div className='f-row f-gap'>
+            <Button variant="contained" className="w-100" onClick={()=>generarEquipos(true)}>
+              <IntelIcon/> <span className='title bold w-100'> Generar Inteligente </span>
+            </Button>
+            <Button variant="contained" color="success" className="w-100" onClick={()=>generarEquipos(false)}>
+              <RandomIcon/> <span className='title bold w-100'> Generar Aleatorio</span>
+            </Button>
+          </div>
+
+          { equipos === null &&
+            <div className='f-row f-gap'>
+              <Button className="custom-btn btn-2 w-100 flex-2">
+                <EquipoIcon/> <span className='title bold w-100'> Lista de Jugadores </span>
+              </Button>
+              <Button className="custom-btn btn-2 w-100 flex-1" onClick={()=>setLugar(true)}>
+                <LugarIcon/> <span className='title bold w-100'> Lugar </span>
+              </Button>
+            </div>
+          }
         </Card>
-      </Box>
-      
-      <Collapse in={jugadorActivo.puntuacion !== null} className={`${jugadorActivo.dark ? 'theme-dark' : 'theme-light'} p-absolute`} sx={{width:"403px"}}>
-        <Box className="w-100 p-relative">
-          <Box className="p-absolute w-100" sx={{top:'0em'}}>
-            <Button variant="contained" color="success" onClick={()=>resetJugadorActivo()}>Cerrar</Button>  
+        <Grow in={equipos !== null} unmountOnExit>
+
+          <Box className='f-row justify-center pa-2'>
+            <Button variant="contained" className='w-30' color='success' onClick={()=>setEquipos(null)}>
+              <AtrasIcon/> <span className='title bold w-100'> Atras </span>
+            </Button>
           </Box>
 
+        </Grow>
+      </Box>
+      
+      {/* ■■■■■■■■■■■■■■■■■■ Carta de Jugador ■■■■■■■■■■■■■■■■■■ */}
+      <Collapse in={jugadorActivo.puntuacion !== null} onClick={()=>resetJugadorActivo()}
+       className={`${jugadorActivo.dark ? 'theme-dark' : 'theme-light'} p-absolute`} sx={{width:"403px"}}>
+        <Box className="w-100 p-relative">
           <Box className='f-col align-center f-gap p-absolute' sx={{
             top: '90px',
             textAlign: 'center',
@@ -200,16 +240,16 @@ export default function App() {
   
             <Box className='w-50 f-col justify-center stats' sx={{fontSize: '1em'}}>
               <div className='f-row justify-space-between w-100 f-gap'>
-                <section><div>{randomStat(30,90)}</div><div>RIT</div></section>
-                <section><div>{randomStat(30,90)}</div><div>REG</div></section>
+                <section><div>{randomStat()}</div><div>RIT</div></section>
+                <section><div>{randomStat()}</div><div>REG</div></section>
               </div>
               <div className='f-row justify-space-between w-100 f-gap'>
-                <section><div>{randomStat(30,90)}</div><div>TIR</div></section>
-                <section><div>{randomStat(30,90)}</div><div>DEF</div></section>
+                <section><div>{randomStat()}</div><div>TIR</div></section>
+                <section><div>{randomStat()}</div><div>DEF</div></section>
               </div>
               <div className='f-row justify-space-between w-100 f-gap'>
-                <section><div>{randomStat(30,90)}</div><div>PAS</div></section>
-                <section><div>{randomStat(30,90)}</div><div>FIS</div></section>
+                <section><div>{randomStat()}</div><div>PAS</div></section>
+                <section><div>{randomStat()}</div><div>FIS</div></section>
               </div>
             </Box>
           </Box>
