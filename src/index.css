@@ -4,6 +4,9 @@
   --colorB: #2d68625c;
   --colorCard: #21222f;
   --colorD: #b6ecb7;
+
+  --fontDark: #ffed9f;
+  --fontLight: #443100; 
 }
 
 body {
@@ -565,8 +568,8 @@ h1,h2,h3,.title {
 
 /*■■■ ■■ ■ FUT Ciber ■ ■■ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 .container{ width: 50%; }
-.theme-dark div{  color: #ffed9f !important; }
-.theme-light div{ color: #443100 !important; }
+.theme-dark div{  color: var(--fontDark) !important; }
+.theme-light div{ color: var(--fontLight) !important; }
 
 .stats div section{
   display: flex;
@@ -605,7 +608,9 @@ h1,h2,h3,.title {
   filter: brightness(1.2);
 }
 
-.label{
+#balance_label{
+  position: absolute;
+  top: -5em;
   background: repeating-linear-gradient(45deg, #3d7131, #264044 150px);
   border-radius: 0.5em;
   border: 3px solid;
@@ -613,6 +618,10 @@ h1,h2,h3,.title {
   font-weight: bold;
   font-size: 1.5em;
   font-family: monospace;
+}
+#balance_label.perfect{
+  color: var(--fontLight);
+  background: repeating-linear-gradient(45deg, gold, var(--colorGold) 150px);
 }
 
 @media (max-width: 768px) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Card, Collapse, Grow } from '@mui/material';
+import { Box, Button, Card, Collapse, Grow, Dialog } from '@mui/material';
 import { 
   Person as JugadorIcon,
   Shuffle as RandomIcon,
@@ -14,7 +14,7 @@ export default function App() {
   const playerTemplate = { nombre: "", puntuacion: null, image: 'cardGold', dark: false }
   const [equipos, setEquipos] = useState(null)
   const [jugadorActivo, setJugadorActivo] = useState(playerTemplate)
-  const [balanced, setBalanced] = useState(null)
+  const [balanced, setBalanced] = useState('')
   const [lugar, setLugar] = useState(false)
 
   useEffect(() => {
@@ -27,12 +27,12 @@ export default function App() {
         } else if(Math.abs(prom1 - prom2) <= 1) {
           setBalanced('Balanceado')
         } else if(Math.abs(prom1 - prom2) <= 2) {
-          setBalanced('Poco Balanceado')
+          setBalanced('No Muy Balanceado')
         } else {
-          setBalanced(null)
+          setBalanced('')
         }
       } else {
-        setBalanced(null)
+        setBalanced('')
       }
     }
   }, [equipos]);
@@ -116,10 +116,10 @@ export default function App() {
 
       <Box className="container f-col justify-center scroll-2 h-100">
 
-        <Collapse in={equipos !== null}>
+        <Collapse in={equipos !== null} className='p-relative'>
 
-          <Grow in={ balanced } unmountOnExit>
-            <Box className='label pa-1 w-fill my-1'>
+          <Grow in={ balanced !== '' } unmountOnExit>
+            <Box id='balance_label' className={`${balanced[0] === 'P' ? 'perfect ':''}pa-1 w-fill my-1`}>
               { balanced }
             </Box>
           </Grow>
@@ -157,25 +157,27 @@ export default function App() {
           </Box>
         </Grow>
         
-        <Grow in={lugar}  unmountOnExit>
-          <Card sx={{height: lugar ? '15em' : '0'}}>
-            <div className='cardHeader justify-space-between px-2'>
-              <div>Lugar</div>
-              <CloseIcon className='closeIcon' onClick={() => setLugar(false)}/>
-            </div>
-            <div className='cardContent'>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6569.2387308014495!2d-58.37842266011174!3d-34.58849659753442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccab2276ca0af%3A0x4173ec14f086f82!2sF%C3%BAtbol%20Retiro!5e0!3m2!1ses-419!2sar!4v1726666712925!5m2!1ses-419!2sar"
-                height="100%"
-                title="iframe"
-                style={{ border: '0', width: '100%' }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </Card>
-        </Grow>
+        <Dialog open={lugar}>
+          <Grow in={lugar} unmountOnExit>
+            <Card sx={{minWidth:'40vw'}}>
+              <div className='cardHeader justify-space-between px-2'>
+                <div>Lugar</div>
+                <CloseIcon className='closeIcon' onClick={() => setLugar(false)}/>
+              </div>
+              <div className='cardContent'>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6569.2387308014495!2d-58.37842266011174!3d-34.58849659753442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccab2276ca0af%3A0x4173ec14f086f82!2sF%C3%BAtbol%20Retiro!5e0!3m2!1ses-419!2sar!4v1726666712925!5m2!1ses-419!2sar"
+                  height="100%"
+                  title="iframe"
+                  style={{ border: '0', width: '100%' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </Card>
+          </Grow>
+        </Dialog>
 
         <Card className='f-col f-gap mt-2 pa-1'>
 
@@ -199,17 +201,17 @@ export default function App() {
             </div>
           }
         </Card>
-        <Grow in={equipos !== null} unmountOnExit>
-
-          <Box className='f-row justify-center pa-2'>
-            <Button variant="contained" className='w-30' color='success' onClick={()=>setEquipos(null)}>
-              <AtrasIcon/> <span className='title bold w-100'> Atras </span>
-            </Button>
-          </Box>
-
-        </Grow>
       </Box>
-      
+
+      {/* ■■■■■■■■■■■■■■■■■■ Atras ■■■■■■■■■■■■■■■■■■ */}
+      <Grow in={equipos !== null} unmountOnExit className='p-absolute w-100' sx={{bottom:'40px'}}>
+        <Box className='f-row justify-center pa-2'>
+          <Button variant="contained" color='success' onClick={()=>setEquipos(null)}>
+            <AtrasIcon/> <span className='title bold w-100'> Atras </span>
+          </Button>
+        </Box>
+      </Grow>
+
       {/* ■■■■■■■■■■■■■■■■■■ Carta de Jugador ■■■■■■■■■■■■■■■■■■ */}
       <Collapse in={jugadorActivo.puntuacion !== null} onClick={()=>resetJugadorActivo()}
        className={`${jugadorActivo.dark ? 'theme-dark' : 'theme-light'} p-absolute`} sx={{width:"403px"}}>
