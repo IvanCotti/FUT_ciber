@@ -15,7 +15,21 @@ export default function App() {
   const [equipos, setEquipos] = useState(null)
   const [jugadorActivo, setJugadorActivo] = useState(playerTemplate)
   const [balanced, setBalanced] = useState('')
-  const [lugar, setLugar] = useState(false)
+  const [showLugar, setShowLugar] = useState(false)
+  const [showJugadoresList, setShowJugadoresList] = useState(false)
+
+  const [jugadores, setJugadores] = useState([
+    { "nombre": "SG Bernal", "puntuacion": 80, image: 'cardGold', dark: false},
+    { "nombre": "VS Bellati", "puntuacion": 87, image: 'cardGoldBlack', dark: true},
+    { "nombre": "VP Cotti", "puntuacion": 74, image: 'cardSilver', dark: false},
+    { "nombre": "MY Teruya", "puntuacion": 85, image: 'cardGold', dark: false},
+    { "nombre": "CT Barrios", "puntuacion": 82, image: 'cardGold', dark: false},
+    { "nombre": "SA Belizan", "puntuacion": 86, image: 'cardGoldBlack', dark: true},
+    { "nombre": "SI Ojeda", "puntuacion": 89, image: 'cardGoldBlack', dark: true},
+    { "nombre": "CT Garcias", "puntuacion": 83, image: 'cardGold', dark: false},
+    { "nombre": "VP Giunti", "puntuacion": 79, image: 'cardGold', dark: false},
+    { "nombre": "CB Lopez", "puntuacion": 87, image: 'cardGoldBlack', dark: true}
+  ]);
 
   useEffect(() => {
     if(equipos !== null){
@@ -38,28 +52,16 @@ export default function App() {
   }, [equipos]);
 
   const generarEquipos = (filtro = false) => {
-    let equipo = [
-      { "nombre": "SG Bernal", "puntuacion": 80, image: 'cardGold', dark: false},
-      { "nombre": "VS Bellati", "puntuacion": 87, image: 'cardGoldBlack', dark: true},
-      { "nombre": "VP Cotti", "puntuacion": 74, image: 'cardSilver', dark: false},
-      { "nombre": "MY Teruya", "puntuacion": 85, image: 'cardGold', dark: false},
-      { "nombre": "CT Barrios", "puntuacion": 82, image: 'cardGold', dark: false},
-      { "nombre": "SA Belizan", "puntuacion": 86, image: 'cardGoldBlack', dark: true},
-      { "nombre": "SI Ojeda", "puntuacion": 89, image: 'cardGoldBlack', dark: true},
-      { "nombre": "CT Garcias", "puntuacion": 83, image: 'cardGold', dark: false},
-      { "nombre": "VP Giunti", "puntuacion": 79, image: 'cardGold', dark: false},
-      { "nombre": "CB Lopez", "puntuacion": 87, image: 'cardGoldBlack', dark: true}
-    ];
-
-    equipo.sort(() => 0.5 - Math.random());
+    console.log(jugadores)
+    jugadores.sort(() => 0.5 - Math.random());
     if(filtro){
       let equipo1 = [];
       let equipo2 = [];
       let sumEquipo1 = 0;
       let sumEquipo2 = 0;
 
-      equipo.forEach((item, index) => {
-          if (index < equipo.length / 2) {
+      jugadores.forEach((item, index) => {
+          if (index < jugadores.length / 2) {
               equipo1.push(item);
               sumEquipo1 += item.puntuacion;
           } else {
@@ -87,11 +89,11 @@ export default function App() {
       setEquipos(
         [
           {
-            lista: equipo.slice(0, equipo.length /2 ),
+            lista: jugadores.slice(0, jugadores.length /2 ),
             promedio: null
           },
           {
-            lista: equipo.slice(equipo.length /2 ),
+            lista: jugadores.slice(jugadores.length /2 ),
             promedio: null
           }
         ]
@@ -109,6 +111,14 @@ export default function App() {
 
   const resetJugadorActivo = () => {
     setJugadorActivo({...playerTemplate, image: jugadorActivo.image})
+  }
+
+  const handleInput = (index, input, number = false) => {
+    if(!number){
+      setJugadores((prev) => prev.map((o,i) => i == index ? {...o, nombre: input} : o ))
+    } else {
+      setJugadores((prev) => prev.map((o,i) => i == index ? {...o, puntuacion: parseInt(input)} : o ))
+    }
   }
 
   return (
@@ -151,34 +161,58 @@ export default function App() {
           </div>
         </Collapse>
 
+        {/* ■■■■■■■■■■■■■■■■■■ FUT LOGO ■■■■■■■■■■■■■■■■■■ */}
         <Grow in={ equipos == null } unmountOnExit>
           <Box id='FUT_logo'>
             { equipos == null && <img className='a-pulse w-100' src='/img/fut_logo.png' alt="logo FUT"/> }
           </Box>
         </Grow>
         
-        <Dialog open={lugar}>
-          <Grow in={lugar} unmountOnExit>
+        {/* ■■■■■■■■■■■■■■■■■■ Lugar MODAL ■■■■■■■■■■■■■■■■■■ */}
+        <Dialog open={showLugar}>
+          <Grow in={showLugar} unmountOnExit>
             <Card sx={{minWidth:'40vw'}}>
-              <div className='cardHeader justify-space-between px-2'>
-                <div>Lugar</div>
-                <CloseIcon className='closeIcon' onClick={() => setLugar(false)}/>
+              <div className='cardHeader justify-space-between'>
+                <div className='f-row align-items'>
+                  <LugarIcon className='mr-1'/> Lugar
+                </div>
+                <CloseIcon className='closeIcon' onClick={() => setShowLugar(false)}/>
               </div>
               <div className='cardContent'>
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6569.2387308014495!2d-58.37842266011174!3d-34.58849659753442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccab2276ca0af%3A0x4173ec14f086f82!2sF%C3%BAtbol%20Retiro!5e0!3m2!1ses-419!2sar!4v1726666712925!5m2!1ses-419!2sar"
-                  height="100%"
-                  title="iframe"
-                  style={{ border: '0', width: '100%' }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6569.2387308014495!2d-58.37842266011174!3d-34.58849659753442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccab2276ca0af%3A0x4173ec14f086f82!2sF%C3%BAtbol%20Retiro!5e0!3m2!1ses-419!2sar!4v1726666712925!5m2!1ses-419!2sar" height="100%" title="iframe" style={{ border: '0', width: '100%' }}
+                  allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </Card>
           </Grow>
         </Dialog>
 
+        {/* ■■■■■■■■■■■■■■■■■■ Lista de Jugadores MODAL ■■■■■■■■■■■■■■■■■■ */}
+        <Dialog open={showJugadoresList}>
+          <Grow in={showJugadoresList} unmountOnExit>
+            <Card sx={{minWidth:'300px'}}>
+              <div className='cardHeader justify-space-between'>
+                <div className='f-row align-items'>
+                  <EquipoIcon className='mr-1'/> Lista de Jugadores
+                </div>
+                <CloseIcon className='closeIcon' onClick={() => setShowJugadoresList(false)}/>
+              </div>
+              <div className='cardContent'>
+                <div className='dataList w-100'>
+                {
+                  jugadores.map((j, i) => (
+                    <section key={'user'+i} className='f-row p-relative pa-05'>
+                      <input style={{width:'20px'}} className='mr-1' type='number' value={j.puntuacion} onChange={(e) => handleInput(i, e.target.value, true)}></input>
+                      <input type='text' value={j.nombre} onChange={(e) => handleInput(i, e.target.value)}></input>
+                    </section>
+                  ))
+                }
+                </div>
+              </div>
+            </Card>  
+          </Grow>
+        </Dialog>
+
+        {/* ■■■■■■■■■■■■■■■■■■ Botonera ■■■■■■■■■■■■■■■■■■ */}
         <Card className='f-col f-gap mt-2 pa-1'>
 
           <div className='f-row f-gap'>
@@ -192,10 +226,10 @@ export default function App() {
 
           { equipos === null &&
             <div className='f-row f-gap'>
-              <Button className="custom-btn btn-2 w-100 flex-2">
+              <Button className="custom-btn btn-2 w-100 flex-2" onClick={()=>setShowJugadoresList(true)}>
                 <EquipoIcon/> <span className='title bold w-100'> Lista de Jugadores </span>
               </Button>
-              <Button className="custom-btn btn-2 w-100 flex-1" onClick={()=>setLugar(true)}>
+              <Button className="custom-btn btn-2 w-100 flex-1" onClick={()=>setShowLugar(true)}>
                 <LugarIcon/> <span className='title bold w-100'> Lugar </span>
               </Button>
             </div>

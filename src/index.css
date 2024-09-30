@@ -611,17 +611,26 @@ h1,h2,h3,.title {
 #balance_label{
   position: absolute;
   top: -5em;
-  background: repeating-linear-gradient(45deg, #3d7131, #264044 150px);
+  background: repeating-linear-gradient(45deg, #3d7131, #264044 160px);
   border-radius: 0.5em;
   border: 3px solid;
   color: var(--colorD);
   font-weight: bold;
   font-size: 1.5em;
-  font-family: monospace;
+  filter: drop-shadow(2px 4px 6px black);
 }
 #balance_label.perfect{
   color: var(--fontLight);
   background: repeating-linear-gradient(45deg, gold, var(--colorGold) 150px);
+  filter: drop-shadow(2px 4px 6px var(--colorGold)) !important;
+}
+
+input{
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-family: 'DefaultFont',sans-serif;
+  font-size: 1rem;
 }
 
 @media (max-width: 768px) {
