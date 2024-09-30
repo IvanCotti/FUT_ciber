@@ -52,7 +52,6 @@ export default function App() {
   }, [equipos]);
 
   const generarEquipos = (filtro = false) => {
-    console.log(jugadores)
     jugadores.sort(() => 0.5 - Math.random());
     if(filtro){
       let equipo1 = [];
@@ -201,7 +200,7 @@ export default function App() {
                 {
                   jugadores.map((j, i) => (
                     <section key={'user'+i} className='f-row p-relative pa-05'>
-                      <input style={{width:'20px'}} className='mr-1' type='number' value={j.puntuacion} onChange={(e) => handleInput(i, e.target.value, true)}></input>
+                      <input style={{width:'50px'}} className='mr-1' type='number' value={j.puntuacion} onChange={(e) => handleInput(i, e.target.value, true)}></input>
                       <input type='text' value={j.nombre} onChange={(e) => handleInput(i, e.target.value)}></input>
                     </section>
                   ))
