@@ -22,7 +22,7 @@ export default function App() {
     { "nombre": "SG Bernal", "puntuacion": 80, image: 'cardGold', dark: false},
     { "nombre": "VS Bellati", "puntuacion": 87, image: 'cardGoldBlack', dark: true},
     { "nombre": "VP Cotti", "puntuacion": 74, image: 'cardSilver', dark: false},
-    { "nombre": "MY Teruya", "puntuacion": 85, image: 'cardGold', dark: false},
+    { "nombre": "MY Teruya", "puntuacion": 90, image: 'cardGold', dark: false},
     { "nombre": "CT Barrios", "puntuacion": 82, image: 'cardGold', dark: false},
     { "nombre": "SA Belizan", "puntuacion": 86, image: 'cardGoldBlack', dark: true},
     { "nombre": "SI Ojeda", "puntuacion": 89, image: 'cardGoldBlack', dark: true},
@@ -76,11 +76,13 @@ export default function App() {
         [
           {
             lista: equipo1,
-            promedio: promedioEquipo1.toFixed(2)
+            promedio: promedioEquipo1.toFixed(2),
+            nombre: equipos && equipos[0].nombre ? equipos[0].nombre : 'Equipo 1'
           },
           {
             lista: equipo2,
-            promedio: promedioEquipo2.toFixed(2)
+            promedio: promedioEquipo2.toFixed(2),
+            nombre: equipos && equipos[1].nombre ? equipos[1].nombre : 'Equipo 2'
           }
         ]
       )
@@ -89,11 +91,13 @@ export default function App() {
         [
           {
             lista: jugadores.slice(0, jugadores.length /2 ),
-            promedio: null
+            promedio: null,
+            nombre: equipos && equipos[0].nombre ? equipos[0].nombre : 'Equipo 1'
           },
           {
             lista: jugadores.slice(jugadores.length /2 ),
-            promedio: null
+            promedio: null,
+            nombre: equipos && equipos[1].nombre ? equipos[1].nombre : 'Equipo 2'
           }
         ]
       )
@@ -112,12 +116,20 @@ export default function App() {
     setJugadorActivo({...playerTemplate, image: jugadorActivo.image})
   }
 
+  const sumarJugador = () => {
+    setJugadores([...jugadores,{ "nombre": "Nuevo", "puntuacion": 0, image: 'cardGold', dark: false}])
+  }
+
   const handleInput = (index, input, number = false) => {
     if(!number){
       setJugadores((prev) => prev.map((o,i) => i === index ? {...o, nombre: input} : o ))
     } else {
       setJugadores((prev) => prev.map((o,i) => i === index ? {...o, puntuacion: parseInt(input)} : o ))
     }
+  }
+
+  const handleEquipoNombre = (index, input) => {
+    setEquipos((prev) => prev.map((o,i) => i === index ? {...o, nombre: input} : o ))
   }
 
   return (
@@ -139,8 +151,8 @@ export default function App() {
             equipos && equipos.map((equipo, num) => (
               <Card className="w-50" sx={{minHeight: '10em'}}>
                 <div className='cardHeader justify-space-between'>
-                  <span>Equipo {num + 1}</span>
-                  <span>{ equipo.promedio}</span>
+                  <input type='text' value={ equipo.nombre } onChange={(e) => handleEquipoNombre(num, e.target.value)}></input>
+                  <span>{ equipo.promedio }</span>
                 </div>
                 <div className='cardContent'>
                   <div className='dataList h-100'>
@@ -197,14 +209,15 @@ export default function App() {
               </div>
               <div className='cardContent'>
                 <div className='dataList w-100'>
-                {
-                  jugadores.map((j, i) => (
-                    <section key={'user'+i} className='f-row p-relative pa-05'>
-                      <input style={{width:'50px'}} className='mr-1' type='number' value={j.puntuacion} onChange={(e) => handleInput(i, e.target.value, true)}></input>
-                      <input type='text' value={j.nombre} onChange={(e) => handleInput(i, e.target.value)}></input>
-                    </section>
-                  ))
-                }
+                  {
+                    jugadores.map((j, i) => (
+                      <section key={'user'+i} className='f-row p-relative pa-05'>
+                        <input style={{width:'50px'}} className='mr-1' type='number' value={j.puntuacion} onChange={(e) => handleInput(i, e.target.value, true)}></input>
+                        <input type='text' value={j.nombre} onChange={(e) => handleInput(i, e.target.value)}></input>
+                      </section>
+                    ))
+                  }
+                  <Button className='w-100' onClick={()=>sumarJugador()}>Agregar Nuevo</Button>
                 </div>
               </div>
             </Card>  
