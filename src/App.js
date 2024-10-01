@@ -114,9 +114,9 @@ export default function App() {
 
   const handleInput = (index, input, number = false) => {
     if(!number){
-      setJugadores((prev) => prev.map((o,i) => i == index ? {...o, nombre: input} : o ))
+      setJugadores((prev) => prev.map((o,i) => i === index ? {...o, nombre: input} : o ))
     } else {
-      setJugadores((prev) => prev.map((o,i) => i == index ? {...o, puntuacion: parseInt(input)} : o ))
+      setJugadores((prev) => prev.map((o,i) => i === index ? {...o, puntuacion: parseInt(input)} : o ))
     }
   }
 
@@ -161,9 +161,9 @@ export default function App() {
         </Collapse>
 
         {/* ■■■■■■■■■■■■■■■■■■ FUT LOGO ■■■■■■■■■■■■■■■■■■ */}
-        <Grow in={ equipos == null } unmountOnExit>
+        <Grow in={ equipos === null } unmountOnExit>
           <Box id='FUT_logo'>
-            { equipos == null && <img className='a-pulse w-100' src='/img/fut_logo.png' alt="logo FUT"/> }
+            { equipos === null && <img className='a-pulse w-100' src='/img/fut_logo.png' alt="logo FUT"/> }
           </Box>
         </Grow>
         
