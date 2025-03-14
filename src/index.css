@@ -11,7 +11,7 @@
 
 body {
   margin: 0;
-  background: url("https://gtwallpaper.org/sites/default/files/wallpaper/224879/fifa-15-wallpapers-224879-1917218-2441564.png");
+  background: url("../public/img/bg.jpg");
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-blend-mode: darken;
@@ -60,6 +60,10 @@ h1,h2,h3,.title {
 }
 #consola span{
   font-family: monospace;
+}
+
+#FUT_logo{
+  filter: drop-shadow(2px 4px 2px black);
 }
 
 .scroll-0 { scrollbar-width: none; }
