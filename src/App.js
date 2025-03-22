@@ -3,7 +3,6 @@ import { Box, Button, Card, Collapse, Grow, Dialog } from '@mui/material';
 import { 
   Person as JugadorIcon,
   Groups as EquipoIcon,
-  ArrowBack as AtrasIcon,
   Close as CloseIcon
 } from '@mui/icons-material';
 
