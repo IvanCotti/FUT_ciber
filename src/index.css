@@ -2,7 +2,7 @@
   --colorRed: #961615;
   --colorGold: #efdd91;
   --colorB: #2d68625c;
-  --colorCard: #21222f;
+  --colorCard: #2f2121;
   --colorD: #b6ecb7;
 
   --fontDark: #ffed9f;
@@ -30,7 +30,11 @@ body {
 
 @font-face {
   font-family: 'DefaultFont';
-  src: url('./assets/fonts/Poppins-Regular.ttf') format("truetype");
+  src: url('./assets/fonts/dinpro.otf') format("truetype");
+}
+@font-face {
+  font-family: 'SpecialFont';
+  src: url('./assets/fonts/EASPORTS15.ttf') format("truetype");
 }
 
 #body {
@@ -546,6 +550,10 @@ h1,h2,h3,.title {
 
 /*■■■ ■■ ■ COMPONENTES CUSTOM ■ ■■ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 
+.MuiBackdrop-root{
+  backdrop-filter: blur(15px);
+}
+
 .container .header{
   display: flex;
 	align-items: center;
@@ -571,7 +579,6 @@ h1,h2,h3,.title {
 
 
 /*■■■ ■■ ■ FUT Ciber ■ ■■ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
-.container{ width: 50%; }
 .theme-dark div{  color: var(--fontDark) !important; }
 .theme-light div{ color: var(--fontLight) !important; }
 
@@ -596,7 +603,7 @@ h1,h2,h3,.title {
 }
 
 #FUT_logo img{
-  max-width: 500px;
+  max-width: 440px;
 }
 
 .closeIcon:hover{
@@ -604,12 +611,62 @@ h1,h2,h3,.title {
   cursor: pointer;
 }
 
-.custom-btn.btn-2{
-  color: var(--colorGold) !important;
-  background-color: var(--colorRed) !important;
+.custom-btn{
+  height: 8em;
+  width: 25em !important;
+  display: flex;
+  text-align: start;
+  flex-direction: column;
+  padding: 6px 10px;
+  background: linear-gradient(161deg, #080a09cc 50%, #595959 150%);
+  backdrop-filter: blur(2px);
+  color: white;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
+
+.custom-btn .name{
+  text-transform: uppercase;
+  font-size: 1.4em;
+  margin-bottom: 0.5em;
+}
+.custom-btn section{
+  color: #a0a0a0a0;
+  animation: appear 0.3s ease-in;
+  z-index: 10;
+  max-width: 60%;
+}
+.custom-btn img{
+  transition: all 0.3s ease-in-out;
+  max-height: 290%;
+  max-width: 50%;
+  position: absolute;
+  right: 0;
+  top: -22%;
+  opacity: 0.7;
+}
+
 .custom-btn:hover{
-  filter: brightness(1.2);
+  background: linear-gradient(161deg, #25210fcc 50%, #595959 150%);
+}
+.custom-btn:hover img{
+  transform: scale(1.2);
+}
+
+@keyframes appear{
+  0%{
+    opacity: 0;
+    transform: translateX(-5em);
+  }
+  70%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 #balance_label{
@@ -641,6 +698,10 @@ input{
   .f-row {
     flex-direction: column;
     align-items: center;
+  }
+
+  .botonera .f-row:first-child{
+    flex-direction: column !important;
   }
 
   .container {

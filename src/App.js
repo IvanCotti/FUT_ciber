@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Box, Button, Card, Collapse, Grow, Dialog } from '@mui/material';
 import { 
   Person as JugadorIcon,
-  Shuffle as RandomIcon,
-  QueryStats as IntelIcon,
   Groups as EquipoIcon,
   ArrowBack as AtrasIcon,
-  LocationOn as LugarIcon,
   Close as CloseIcon
 } from '@mui/icons-material';
 
@@ -15,7 +12,6 @@ export default function App() {
   const [equipos, setEquipos] = useState(null)
   const [jugadorActivo, setJugadorActivo] = useState(playerTemplate)
   const [balanced, setBalanced] = useState('')
-  const [showLugar, setShowLugar] = useState(false)
   const [showJugadoresList, setShowJugadoresList] = useState(false)
 
   const [jugadores, setJugadores] = useState([
@@ -133,7 +129,7 @@ export default function App() {
   }
 
   return (
-    <center className='f-row pa-1 justify-center align-center h-100 w-100'>
+    <center className='f-row justify-center align-center h-100 w-100'>
 
       <Box className="container f-col justify-center scroll-2 h-100">
 
@@ -178,24 +174,6 @@ export default function App() {
             { equipos === null && <img className='a-pulse w-100' src='/img/fut_logo.png' alt="logo FUT"/> }
           </Box>
         </Grow>
-        
-        {/* ■■■■■■■■■■■■■■■■■■ Lugar MODAL ■■■■■■■■■■■■■■■■■■ */}
-        <Dialog open={showLugar}>
-          <Grow in={showLugar} unmountOnExit>
-            <Card sx={{minWidth:'40vw'}}>
-              <div className='cardHeader justify-space-between'>
-                <div className='f-row align-items'>
-                  <LugarIcon className='mr-1'/> Lugar
-                </div>
-                <CloseIcon className='closeIcon' onClick={() => setShowLugar(false)}/>
-              </div>
-              <div className='cardContent'>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6569.2387308014495!2d-58.37842266011174!3d-34.58849659753442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccab2276ca0af%3A0x4173ec14f086f82!2sF%C3%BAtbol%20Retiro!5e0!3m2!1ses-419!2sar!4v1726666712925!5m2!1ses-419!2sar" height="100%" title="iframe" style={{ border: '0', width: '100%' }}
-                  allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-              </div>
-            </Card>
-          </Grow>
-        </Dialog>
 
         {/* ■■■■■■■■■■■■■■■■■■ Lista de Jugadores MODAL ■■■■■■■■■■■■■■■■■■ */}
         <Dialog open={showJugadoresList}>
@@ -225,36 +203,40 @@ export default function App() {
         </Dialog>
 
         {/* ■■■■■■■■■■■■■■■■■■ Botonera ■■■■■■■■■■■■■■■■■■ */}
-        <Card className='f-col f-gap mt-2 pa-1'>
+        <Box className='botonera f-col f-gap mt-2 pa-1' sx={{margin: "0 auto"}}>
 
           <div className='f-row f-gap'>
-            <Button variant="contained" className="w-100" onClick={()=>generarEquipos(true)}>
-              <IntelIcon/> <span className='title bold w-100'> Generar Inteligente </span>
-            </Button>
-            <Button variant="contained" color="success" className="w-100" onClick={()=>generarEquipos(false)}>
-              <RandomIcon/> <span className='title bold w-100'> Generar Aleatorio</span>
-            </Button>
+            <Box className="custom-btn btn-3" onClick={()=>generarEquipos(true)}>
+              <div className='name'> Generar Equipos </div>
+              <section> En base a media de Jugadores </section>
+              <img src="/img/team.png" alt="fondo"/>
+            </Box>
+            <Box className="custom-btn btn-3" onClick={()=>generarEquipos(false)}>
+              <div className='name'> Aleatorio</div>
+              <section> Seleccion al azar </section>
+              <img src="/img/team2.png" alt="fondo"/>
+            </Box>
           </div>
 
           { equipos === null &&
             <div className='f-row f-gap'>
-              <Button className="custom-btn btn-2 w-100 flex-2" onClick={()=>setShowJugadoresList(true)}>
-                <EquipoIcon/> <span className='title bold w-100'> Lista de Jugadores </span>
-              </Button>
-              <Button className="custom-btn btn-2 w-100 flex-1" onClick={()=>setShowLugar(true)}>
-                <LugarIcon/> <span className='title bold w-100'> Lugar </span>
-              </Button>
+              <Box className="custom-btn btn-2 flex-2" onClick={()=>setShowJugadoresList(true)}>
+                <div className='name'> Lista de Jugadores </div>
+                <section> Modifica la lista completa de los jugadores convocados </section>
+                <img src="/img/team.png" alt="fondo"/>
+              </Box>
             </div>
           }
-        </Card>
+        </Box>
       </Box>
 
       {/* ■■■■■■■■■■■■■■■■■■ Atras ■■■■■■■■■■■■■■■■■■ */}
       <Grow in={equipos !== null} unmountOnExit className='p-absolute w-100' sx={{bottom:'40px'}}>
         <Box className='f-row justify-center pa-2'>
-          <Button variant="contained" color='success' onClick={()=>setEquipos(null)}>
-            <AtrasIcon/> <span className='title bold w-100'> Atras </span>
-          </Button>
+          <Box className='custom-btn' onClick={()=>setEquipos(null)}>
+            <div className='name'> Atras </div>
+            <section>Volver al Menu</section>
+          </Box>
         </Box>
       </Grow>
 
