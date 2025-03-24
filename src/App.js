@@ -121,16 +121,16 @@ export default function App() {
         <Collapse in={equipos !== null} className='p-relative'>
 
           <Grow in={ balanced !== '' } unmountOnExit>
-            <Box id='balance_label' className={`${balanced[0] === 'P' ? 'perfect ':''}pa-1 w-fill my-1`}>
+            <Box id='balance_label' className={`${balanced[0] === 'P' ? 'perfect ':''}`}>
               { balanced }
             </Box>
           </Grow>
 
           {/* ■■■■■■■■■■■■■■■■■■ Tablas ■■■■■■■■■■■■■■■■■■ */}
-          <div className='f-row f-gap'>
+          <div className='container-equipos f-row f-gap'>
           {
             equipos && equipos.map((equipo, num) => (
-              <Card className="w-50" sx={{minHeight: '10em'}}>
+              <Card className="w-50" sx={{minHeight: '10em'}} key={num}>
                 <div className='cardHeader justify-space-between'>
                   <input type='text' value={ equipo.nombre } onChange={(e) => handleEquipoNombre(num, e.target.value)}></input>
                   <span>{ equipo.promedio }</span>
@@ -161,7 +161,7 @@ export default function App() {
         </Grow>
 
         {/* ■■■■■■■■■■■■■■■■■■ Lista de Jugadores MODAL ■■■■■■■■■■■■■■■■■■ */}
-        <PlayersList showList={showJugadoresList} setShow={setShowJugadoresList}/>
+        <PlayersList jugadores={jugadores} setJugadores={setJugadores} showList={showJugadoresList} setShow={setShowJugadoresList}/>
 
         {/* ■■■■■■■■■■■■■■■■■■ Botonera ■■■■■■■■■■■■■■■■■■ */}
         <Box className='botonera f-col f-gap mt-2 pa-1' sx={{margin: "0 auto"}}>
@@ -202,7 +202,7 @@ export default function App() {
       </Grow>
 
       {/* ■■■■■■■■■■■■■■■■■■ Carta de Jugador ■■■■■■■■■■■■■■■■■■ */}
-      <CardPlayer player={jugadorActivo} setJugadorActivo={setJugadorActivo}/>
+      <CardPlayer jugadorActivo={jugadorActivo} setJugadorActivo={setJugadorActivo}/>
       
     </center>
   )
