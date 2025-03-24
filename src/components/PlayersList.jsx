@@ -11,7 +11,7 @@ export default function PlayersList({jugadores, showList, setShow, setJugadores}
     if(showList){
       setEditJugadores(jugadores)
     }
-  },[showList])
+  },[showList,jugadores])
 
   const sumarJugador = () => {
     console.log("Agregando")
