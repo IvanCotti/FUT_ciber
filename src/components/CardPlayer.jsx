@@ -1,6 +1,5 @@
 import { Box, Collapse } from '@mui/material';
-import { use, useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CardPlayer({jugadorActivo}){
   const playerTemplate = { nombre: "", puntuacion: null, image: 'cardGold', dark: false }

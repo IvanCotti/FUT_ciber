@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Card, Collapse, Grow, Dialog } from '@mui/material';
+import { Box, Card, Collapse, Grow } from '@mui/material';
 import { 
   Person as JugadorIcon,
 } from '@mui/icons-material';
