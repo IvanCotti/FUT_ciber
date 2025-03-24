@@ -1,3 +1,5 @@
+![Logo del proyecto](public/img/fut_logo.png)
+
 # FUT Ciber
 
 ## ¿Qué es FUT Ciber?
