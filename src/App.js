@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Box, Button, Card, Collapse, Grow, Dialog } from '@mui/material';
 import { 
   Person as JugadorIcon,
-  Groups as EquipoIcon,
-  Close as CloseIcon
 } from '@mui/icons-material';
 
-export default function App() {
-  const playerTemplate = { nombre: "", puntuacion: null, image: 'cardGold', dark: false }
-  const [equipos, setEquipos] = useState(null)
-  const [jugadorActivo, setJugadorActivo] = useState(playerTemplate)
-  const [balanced, setBalanced] = useState('')
-  const [showJugadoresList, setShowJugadoresList] = useState(false)
+import CardPlayer from "./components/CardPlayer"
+import PlayersList from "./components/PlayersList"
 
-  const [jugadores, setJugadores] = useState([
+export default function App() {
+  const [equipos, setEquipos] = useState(null)
+  const [balanced, setBalanced] = useState('')
+  
+  const [jugadorActivo, setJugadorActivo] = useState(null)
+  
+  const borrame = [
     { "nombre": "SG Bernal", "puntuacion": 80, image: 'cardGold', dark: false},
     { "nombre": "VS Bellati", "puntuacion": 87, image: 'cardGoldBlack', dark: true},
     { "nombre": "VP Cotti", "puntuacion": 74, image: 'cardSilver', dark: false},
@@ -24,7 +24,17 @@ export default function App() {
     { "nombre": "CT Garcias", "puntuacion": 83, image: 'cardGold', dark: false},
     { "nombre": "VP Giunti", "puntuacion": 79, image: 'cardGold', dark: false},
     { "nombre": "CB Lopez", "puntuacion": 87, image: 'cardGoldBlack', dark: true}
-  ]);
+  ]
+
+  const [jugadores, setJugadores] = useState(borrame);
+  const [showJugadoresList, setShowJugadoresList] = useState(false);
+
+  useEffect(() => {
+    let storagePlayers = JSON.parse(localStorage.getItem("jugadores"))
+    if(storagePlayers && storagePlayers.length > 0){
+      setJugadores(storagePlayers)
+    }
+  },[])
 
   useEffect(() => {
     if(equipos !== null){
@@ -99,30 +109,6 @@ export default function App() {
     }
   }
 
-  const llenarCard = (jugador) => {
-    setJugadorActivo(jugador)
-  }
-
-  const randomStat = () => {
-    return Math.floor(Math.random() * ((jugadorActivo.puntuacion + 5) - 50 + 1)) + 50
-  }
-
-  const resetJugadorActivo = () => {
-    setJugadorActivo({...playerTemplate, image: jugadorActivo.image})
-  }
-
-  const sumarJugador = () => {
-    setJugadores([...jugadores,{ "nombre": "Nuevo", "puntuacion": 0, image: 'cardGold', dark: false}])
-  }
-
-  const handleInput = (index, input, number = false) => {
-    if(!number){
-      setJugadores((prev) => prev.map((o,i) => i === index ? {...o, nombre: input} : o ))
-    } else {
-      setJugadores((prev) => prev.map((o,i) => i === index ? {...o, puntuacion: parseInt(input)} : o ))
-    }
-  }
-
   const handleEquipoNombre = (index, input) => {
     setEquipos((prev) => prev.map((o,i) => i === index ? {...o, nombre: input} : o ))
   }
@@ -153,7 +139,7 @@ export default function App() {
                   <div className='dataList h-100'>
                     { 
                       equipo.lista.map((j,i) => (
-                      <section key={'user'+i} className='f-row p-relative' onClick={()=>llenarCard(j)}>
+                      <section key={'user'+i} className='f-row p-relative' onClick={()=>setJugadorActivo(j)}>
                         <div className='f-row align-center w-10 mr-1'> <JugadorIcon/></div>
                         <div> {j.nombre} </div>
                       </section>
@@ -170,36 +156,12 @@ export default function App() {
         {/* ■■■■■■■■■■■■■■■■■■ FUT LOGO ■■■■■■■■■■■■■■■■■■ */}
         <Grow in={ equipos === null } unmountOnExit>
           <Box id='FUT_logo'>
-            { equipos === null && <img className='a-pulse w-100' src='/img/fut_logo.png' alt="logo FUT"/> }
+            { equipos === null && <img className='a-pulse w-75' src='/img/fut_logo.png' alt="logo FUT"/> }
           </Box>
         </Grow>
 
         {/* ■■■■■■■■■■■■■■■■■■ Lista de Jugadores MODAL ■■■■■■■■■■■■■■■■■■ */}
-        <Dialog open={showJugadoresList}>
-          <Grow in={showJugadoresList} unmountOnExit>
-            <Card sx={{minWidth:'300px'}}>
-              <div className='cardHeader justify-space-between'>
-                <div className='f-row align-items'>
-                  <EquipoIcon className='mr-1'/> Lista de Jugadores
-                </div>
-                <CloseIcon className='closeIcon' onClick={() => setShowJugadoresList(false)}/>
-              </div>
-              <div className='cardContent'>
-                <div className='dataList w-100'>
-                  {
-                    jugadores.map((j, i) => (
-                      <section key={'user'+i} className='f-row p-relative pa-05'>
-                        <input style={{width:'50px'}} className='mr-1' type='number' value={j.puntuacion} onChange={(e) => handleInput(i, e.target.value, true)}></input>
-                        <input type='text' value={j.nombre} onChange={(e) => handleInput(i, e.target.value)}></input>
-                      </section>
-                    ))
-                  }
-                  <Button className='w-100' onClick={()=>sumarJugador()}>Agregar Nuevo</Button>
-                </div>
-              </div>
-            </Card>  
-          </Grow>
-        </Dialog>
+        <PlayersList showList={showJugadoresList} setShow={setShowJugadoresList}/>
 
         {/* ■■■■■■■■■■■■■■■■■■ Botonera ■■■■■■■■■■■■■■■■■■ */}
         <Box className='botonera f-col f-gap mt-2 pa-1' sx={{margin: "0 auto"}}>
@@ -240,51 +202,7 @@ export default function App() {
       </Grow>
 
       {/* ■■■■■■■■■■■■■■■■■■ Carta de Jugador ■■■■■■■■■■■■■■■■■■ */}
-      <Collapse in={jugadorActivo.puntuacion !== null} onClick={()=>resetJugadorActivo()}
-       className={`${jugadorActivo.dark ? 'theme-dark' : 'theme-light'} p-absolute`} sx={{width:"403px"}}>
-        <Box className="w-100 p-relative">
-          <Box className='f-col align-center f-gap p-absolute' sx={{
-            top: '90px',
-            textAlign: 'center',
-            width: '100%',
-            color: '#000000b0',
-            fontWeight: 700,
-            fontSize: '1.5rem',
-            position: 'relative'
-          }}>
-            <Box className="w-50">
-              <div className='p-absolute f-col align-center' style={{top:'-10px',left:'89px', gap:'4px'}}>
-                <div style={{fontSize:'1.6em'}}>{ jugadorActivo.puntuacion }</div>
-                {jugadorActivo.puntuacion && <div >{jugadorActivo.nombre.split(' ')[0]}</div>}
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7Ls2LH_xjmWFsXlYZTbipzCyBu6jXglnEJA&s" alt="logoCiber"
-                  style={{objectFit:'cover', width:'1.8em'}}/>
-                <img src={"/img/logoCiber.png"} alt="logoCiber"
-                  style={{objectFit:'cover', width:'2.2em'}}/>
-              </div>
-
-              { jugadorActivo.puntuacion && <img src={"/img/user.png"} style={{marginLeft:'43px', width:'203px'}} alt="userImage"/> }
-              <div> { jugadorActivo.nombre } </div>
-            </Box>
-            
-  
-            <Box className='w-50 f-col justify-center stats' sx={{fontSize: '1em'}}>
-              <div className='f-row justify-space-between w-100 f-gap'>
-                <section><div>{randomStat()}</div><div>RIT</div></section>
-                <section><div>{randomStat()}</div><div>REG</div></section>
-              </div>
-              <div className='f-row justify-space-between w-100 f-gap'>
-                <section><div>{randomStat()}</div><div>TIR</div></section>
-                <section><div>{randomStat()}</div><div>DEF</div></section>
-              </div>
-              <div className='f-row justify-space-between w-100 f-gap'>
-                <section><div>{randomStat()}</div><div>PAS</div></section>
-                <section><div>{randomStat()}</div><div>FIS</div></section>
-              </div>
-            </Box>
-          </Box>
-          <img className='w-100' src={`/img/cards/${jugadorActivo.image}.png`} alt="card"/>
-        </Box>
-      </Collapse>
+      <CardPlayer player={jugadorActivo} setJugadorActivo={setJugadorActivo}/>
       
     </center>
   )

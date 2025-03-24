@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# FUT Ciber
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ¿Qué es FUT Ciber?
 
-## Available Scripts
+FUT Ciber es una herramienta web desarrollada una mañana que se requeria organizar equipos de futbol balanceados entre los integrantes de oficina, especificamente la dirección de Ciberdefensa del Ejercito Argentino ( de ahi el "Ciber" en el nombre).
 
-In the project directory, you can run:
+Se define como una simple herramienta web de organizacion de equipos de futbol en base a una puntuacion asignada a los jugadores ingresada por el mismo usuario. En vez de ejecutar un simple script se me ocurrio implementar un poco mas de tiempo para diseñarle una interfaz personalizada que cause gracia al mostrarselo a mis superiores.
 
-### `npm start`
+## Evolución y Diseño
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+En la siguiente version 1.1.0 la interfaz fue adaptada al tipico menu de FIFA 15, del que ya poseia referencias como las cartas de los jugadores inspiradas en la modalidad de juego Fifa Ultimate Team (de la que tambien proviene el logo/escudo de la aplicacion).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnología
 
-### `npm test`
+FUT Ciber está desarrollado con:
+- **ReactJS** para la interfaz de usuario.
+- **Material UI** para alguno que otro componente visual.
+- **Local Storage** del navegador para almacenar jugadores y equipos generados en formato JSON, evitando la necesidad de un backend.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Características Principales
 
-### `npm run build`
+- **Creación rápida de equipos balanceados** según puntuaciones asignadas por los usuarios.
+- **Interfaz inspirada en FIFA Ultimate Team** para una experiencia más atractiva.
+- **Almacenamiento local** sin necesidad de conexión a servidores.
+- **Diseño ligero y eficiente**, ideal para uso en oficinas o pequeños grupos.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Futuras Mejoras
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Se podría considerar la incorporación de nuevas funcionalidades, tales como:
+- Guardar Listas de Jugadores.
+- Guardar Lugares donde jugar.
+- Agregar nuevas cartas y mejorar la eleccion de sus variantes y el atributo booleano "dark"
+- Posibilidad de compartir equipos generados mediante exportación/importación de datos.
+- Mejoras en el algoritmo de distribución de jugadores para optimizar la equidad de los equipos.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+FUT Ciber sigue siendo una herramienta simple pero efectiva, desarrollada con un enfoque tanto funcional como recreativo.
+[Visita FUT Ciber](https://futciber.netlify.app)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

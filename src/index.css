@@ -2,7 +2,7 @@
   --colorRed: #961615;
   --colorGold: #efdd91;
   --colorB: #2d68625c;
-  --colorCard: #2f2121;
+  --colorCard: #21292f;
   --colorD: #b6ecb7;
 
   --fontDark: #ffed9f;
@@ -355,7 +355,7 @@ h1,h2,h3,.title {
 .f-grow { flex-grow: 1 !important; }
 .f-basis{ flex-basis: 0 !important; }
 .f-shrink{ flex-shrink: 0 !important; }
-.f-gap { display: flex; gap: 0.7em !important; }
+.f-gap { display: flex; gap: 0.3em !important; }
 .f-gap-1{ gap: 1em !important; }
 .f-gap-2{ gap: 2em !important; }
 
