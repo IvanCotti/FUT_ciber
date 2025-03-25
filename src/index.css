@@ -390,6 +390,7 @@ h1,h2,h3,.title {
 }
 .h-fit { height: fit-content !important; }
 .w-100 { width: 100% !important; }
+.w-95 { width: 95% !important; }
 .w-90 { width: 90% !important; }
 .w-80 { width: 80% !important; }
 .w-75 { width: 75% !important; }
@@ -614,7 +615,7 @@ h1,h2,h3,.title {
 
 .custom-btn{
   height: 8em;
-  width: 25em !important;
+  width: 25em;
   display: flex;
   text-align: start;
   flex-direction: column;
@@ -654,6 +655,17 @@ h1,h2,h3,.title {
 }
 .custom-btn:hover img{
   transform: scale(1.2);
+}
+
+.card-player{
+  filter: drop-shadow(0px 4px 10px wheat);
+  width: 100%;
+  position: relative;
+}
+.card-player .nombre{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @keyframes appear{
@@ -768,6 +780,11 @@ input{
     padding: 0.5em;
     max-height: 70%;
     overflow: hidden;
+  }
+
+  .container-players .custom-btn{
+    width: 22em !important;
+    height: 6em;
   }
 
   .w-50 {

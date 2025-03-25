@@ -9,21 +9,42 @@ export default function PlayersList({jugadores, showList, setShow, setJugadores}
 
   useEffect(()=>{
     if(showList){
-      setEditJugadores(jugadores)
+      setEditJugadores(jugadores.sort((b, a) => a.puntuacion - b.puntuacion))
     }
   },[showList,jugadores])
 
   const sumarJugador = () => {
-    console.log("Agregando")
-    let nuevosJugadores = [...editJugadores,{ "nombre": "NO Jugador", "puntuacion": 75, image: 'cardGold', dark: false}]
+    const nuevoJugador = {
+      nombre: "NO Jugador",
+      puntuacion: 75,
+      image: 'cardGold'
+    }
+    let nuevosJugadores = [...editJugadores, nuevoJugador]
     setEditJugadores(nuevosJugadores)
+  }
+
+  const calcularCard = (media) => {
+    if(media < 64){
+      return "cardBronze"
+    }
+    else if(media < 75){
+      return "cardSilver"
+    }
+    else if(media < 86){
+      return "cardGold"
+    }
+    else{
+      return "cardGoldBlack"
+    }
   }
 
   const handleInput = (index, input, number = false) => {
     if(!number){
       setEditJugadores((prev) => prev.map((o,i) => i === index ? {...o, nombre: input} : o ))
     } else {
-      setEditJugadores((prev) => prev.map((o,i) => i === index ? {...o, puntuacion: parseInt(input)} : o ))
+      let media = parseInt(input);
+      let card = calcularCard(media);
+      setEditJugadores((prev) => prev.map((o,i) => i === index ? {...o, puntuacion: media, image: card } : o ))
     }
   }
 

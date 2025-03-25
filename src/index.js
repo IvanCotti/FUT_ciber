@@ -4,10 +4,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './index.css';
 import App from './App';
 
-// Crear el tema oscuro
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark', // Esto activa el modo oscuro
+    mode: 'dark',
   },
 });
 

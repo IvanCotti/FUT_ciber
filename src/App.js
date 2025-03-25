@@ -14,16 +14,16 @@ export default function App() {
   const [jugadorActivo, setJugadorActivo] = useState(null)
   
   const borrame = [
-    { "nombre": "SG Bernal", "puntuacion": 80, image: 'cardGold', dark: false},
-    { "nombre": "VS Bellati", "puntuacion": 87, image: 'cardGoldBlack', dark: true},
-    { "nombre": "VP Cotti", "puntuacion": 74, image: 'cardSilver', dark: false},
-    { "nombre": "MY Teruya", "puntuacion": 90, image: 'cardGold', dark: false},
-    { "nombre": "CT Barrios", "puntuacion": 82, image: 'cardGold', dark: false},
-    { "nombre": "SA Belizan", "puntuacion": 86, image: 'cardGoldBlack', dark: true},
-    { "nombre": "SI Ojeda", "puntuacion": 89, image: 'cardGoldBlack', dark: true},
-    { "nombre": "CT Garcias", "puntuacion": 83, image: 'cardGold', dark: false},
-    { "nombre": "VP Giunti", "puntuacion": 79, image: 'cardGold', dark: false},
-    { "nombre": "CB Lopez", "puntuacion": 87, image: 'cardGoldBlack', dark: true}
+    { "nombre": "MY Teruya", "puntuacion": 90, image: 'cardGold'},
+    { "nombre": "CT Garcias", "puntuacion": 83, image: 'cardGold'},
+    { "nombre": "CT Barrios", "puntuacion": 82, image: 'cardGold'},
+    { "nombre": "SA Belizan", "puntuacion": 86, image: 'cardGoldBlack'},
+    { "nombre": "SI Ojeda", "puntuacion": 89, image: 'cardGoldBlack'},
+    { "nombre": "SG Bernal", "puntuacion": 80, image: 'cardGold'},
+    { "nombre": "CB Lopez", "puntuacion": 87, image: 'cardGoldBlack'},
+    { "nombre": "VS Bellati", "puntuacion": 87, image: 'cardGoldBlack'},
+    { "nombre": "VP Giunti", "puntuacion": 79, image: 'cardGold'},
+    { "nombre": "VP Cotti", "puntuacion": 74, image: 'cardSilver'},
   ]
 
   const [jugadores, setJugadores] = useState(borrame);
