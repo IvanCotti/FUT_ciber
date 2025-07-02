@@ -2,6 +2,7 @@
   "name": "fulbo_react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ivancotti.github.io/FUT_ciber",
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -42,7 +43,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0",
-    "homepage": "https://ivancotti.github.io/FUT_ciber"
+    "gh-pages": "^6.3.0"
   }
 }
