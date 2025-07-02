@@ -55,11 +55,11 @@ export default function CardPlayer({jugadorActivo, setJugadorActivo}){
                   { player.puntuacion }
                 </div>
                 { player.puntuacion && <div> { displayName(player.nombre).pre } </div> }
-                <img src="/img/arg.png" alt="logoCiber" style={{objectFit:'cover', width:'1.8em'}}/>
-                <img src={"/img/logoCiber.png"} alt="logoCiber" style={{objectFit:'cover', width:'2.2em'}}/>
+                <img src={`${process.env.PUBLIC_URL}/img/arg.png`} alt="logoCiber" style={{objectFit:'cover', width:'1.8em'}}/>
+                <img src={`${process.env.PUBLIC_URL}/img/logoCiber.png`} alt="logoCiber" style={{objectFit:'cover', width:'2.2em'}}/>
               </div>
   
-              { player.puntuacion && <img src={"/img/user.png"} style={{marginLeft:'43px', width:'194px'}} alt="userImage"/> }
+              { player.puntuacion && <img src={`${process.env.PUBLIC_URL}/img/user.png`} style={{marginLeft:'43px', width:'194px'}} alt="userImage"/> }
               <div className='nombre'> { displayName(player.nombre).name } </div>
             </Box>
             
@@ -79,7 +79,7 @@ export default function CardPlayer({jugadorActivo, setJugadorActivo}){
               </div>
             </Box>
           </Box>
-          <img className='w-95' src={`/img/cards/${player.image}.png`} alt="card"/>
+          <img className='w-95' src={`${process.env.PUBLIC_URL}/img/cards/${player.image}.png`} alt="card"/>
         </Box>
       </Collapse>
     )

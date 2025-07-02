@@ -156,7 +156,7 @@ export default function App() {
         {/* ■■■■■■■■■■■■■■■■■■ FUT LOGO ■■■■■■■■■■■■■■■■■■ */}
         <Grow in={ equipos === null } unmountOnExit>
           <Box id='FUT_logo'>
-            { equipos === null && <img className='a-pulse w-75' src='/img/fut_logo.png' alt="logo FUT"/> }
+            { equipos === null && <img className='a-pulse w-75' src={`${process.env.PUBLIC_URL}/img/fut_logo.png`}alt="logo FUT"/> }
           </Box>
         </Grow>
 
@@ -170,12 +170,12 @@ export default function App() {
             <Box className="custom-btn btn-3" onClick={()=>generarEquipos(true)}>
               <div className='name'> Generar Equipos </div>
               <section> En base a media de Jugadores </section>
-              <img src="/img/team.png" alt="fondo"/>
+              <img src={`${process.env.PUBLIC_URL}/img/team.png`} alt="fondo"/>
             </Box>
             <Box className="custom-btn btn-3" onClick={()=>generarEquipos(false)}>
               <div className='name'> Aleatorio</div>
               <section> Seleccion al azar </section>
-              <img src="/img/team2.png" alt="fondo"/>
+              <img src={`${process.env.PUBLIC_URL}/img/team2.png`} alt="fondo"/>
             </Box>
           </div>
 
@@ -184,7 +184,7 @@ export default function App() {
               <Box className="custom-btn btn-2 flex-2" onClick={()=>setShowJugadoresList(true)}>
                 <div className='name'> Lista de Jugadores </div>
                 <section> Modifica la lista completa de los jugadores convocados </section>
-                <img src="/img/team.png" alt="fondo"/>
+                <img src={`${process.env.PUBLIC_URL}/img/team.png`} alt="fondo"/>
               </Box>
             </div>
           }
