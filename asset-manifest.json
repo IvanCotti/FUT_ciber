@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/FUT_ciber/static/css/main.4b9f16e7.css",
-    "main.js": "/FUT_ciber/static/js/main.a37a1fb0.js",
+    "main.js": "/FUT_ciber/static/js/main.9103660f.js",
     "static/media/bg.jpg": "/FUT_ciber/static/media/bg.5c1b1e0dda08c95dc1da.jpg",
     "static/media/dinpro.otf": "/FUT_ciber/static/media/dinpro.6ef85ba7df7db1508c63.otf",
     "static/media/EASPORTS15.ttf": "/FUT_ciber/static/media/EASPORTS15.f44e9a9e4817ce1ce19b.ttf",
     "index.html": "/FUT_ciber/index.html",
     "main.4b9f16e7.css.map": "/FUT_ciber/static/css/main.4b9f16e7.css.map",
-    "main.a37a1fb0.js.map": "/FUT_ciber/static/js/main.a37a1fb0.js.map"
+    "main.9103660f.js.map": "/FUT_ciber/static/js/main.9103660f.js.map"
   },
   "entrypoints": [
     "static/css/main.4b9f16e7.css",
-    "static/js/main.a37a1fb0.js"
+    "static/js/main.9103660f.js"
   ]
 }
