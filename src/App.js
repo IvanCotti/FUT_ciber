@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Card, Collapse, Grow } from '@mui/material';
 import { 
   Person as JugadorIcon,
@@ -14,16 +14,16 @@ export default function App() {
   const [jugadorActivo, setJugadorActivo] = useState(null)
   
   const borrame = [
-    { "nombre": "MY Teruya", "puntuacion": 90, image: 'cardGold'},
-    { "nombre": "CT Garcias", "puntuacion": 83, image: 'cardGold'},
-    { "nombre": "CT Barrios", "puntuacion": 82, image: 'cardGold'},
-    { "nombre": "SA Belizan", "puntuacion": 86, image: 'cardGoldBlack'},
-    { "nombre": "SI Ojeda", "puntuacion": 89, image: 'cardGoldBlack'},
-    { "nombre": "SG Bernal", "puntuacion": 80, image: 'cardGold'},
-    { "nombre": "CB Lopez", "puntuacion": 87, image: 'cardGoldBlack'},
-    { "nombre": "VS Bellati", "puntuacion": 87, image: 'cardGoldBlack'},
-    { "nombre": "VP Giunti", "puntuacion": 79, image: 'cardGold'},
-    { "nombre": "VP Cotti", "puntuacion": 74, image: 'cardSilver'},
+    { nombre: "John Doe", score: 90, pos: "PO"},
+    { nombre: "Lorem Ipsum", score: 83, pos: "PO"},
+    { nombre: "James Baxter", score: 82, pos: "PO"},
+    { nombre: "Cisco Systems", score: 86, pos: "PO"},
+    { nombre: "Jim Halpert", score: 89, pos: "PO"},
+    { nombre: "Chris Evans", score: 80, pos: "PO"},
+    { nombre: "Nicholas Tesla", score: 87, pos: "PO"},
+    { nombre: "Michael Scott", score: 87, pos: "PO"},
+    { nombre: "Mussolinni", score: 79, pos: "PO"},
+    { nombre: "Undefined", score: 81, pos: "PO"},
   ]
 
   const [jugadores, setJugadores] = useState(borrame);
@@ -67,10 +67,10 @@ export default function App() {
       jugadores.forEach((item, index) => {
           if (index < jugadores.length / 2) {
               equipo1.push(item);
-              sumEquipo1 += item.puntuacion;
+              sumEquipo1 += item.score;
           } else {
               equipo2.push(item);
-              sumEquipo2 += item.puntuacion;
+              sumEquipo2 += item.score;
           }
       });
 

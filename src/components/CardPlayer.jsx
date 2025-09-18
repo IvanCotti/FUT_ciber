@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function CardPlayer({jugadorActivo, setJugadorActivo}){
   const cardsDarkTheme = ["cardGoldBlack"]
-  const playerTemplate = { nombre: "", puntuacion: null, image: null}
+  const playerTemplate = { nombre: "", score: null, image: null}
   const [player, setPlayer] = useState(playerTemplate)
 
   useEffect(()=>{
@@ -20,23 +20,12 @@ export default function CardPlayer({jugadorActivo, setJugadorActivo}){
   }
 
   const randomStat = () => {
-    return Math.floor(Math.random() * ((player.puntuacion + 5) - 50 + 1)) + 50
-  }
-
-  const displayName = (name) => {
-    let divido = name.split(" ")
-    if(divido[0].length <= 3){
-      let pre = divido[0]
-      divido = divido.filter((_, i) => i !== 0)
-      return {name: divido.join(" ").toUpperCase(), pre: pre} 
-    } else {
-      return {name: name.toUpperCase(), pre: "FUT"}
-    }
+    return Math.floor(Math.random() * ((player.score + 5) - 50 + 1)) + 50
   }
 
   if(player){
     return (
-      <Collapse in={player.puntuacion !== null} onClick={()=>resetPlayer()}
+      <Collapse in={player.score !== null} onClick={()=>resetPlayer()}
         className={`${cardsDarkTheme.includes(player.image) ? 'theme-dark' : 'theme-light'} p-absolute`} sx={{width:"403px"}}>
         <Box className="card-player">
           <Box className='f-col align-center p-absolute' sx={{
@@ -51,16 +40,16 @@ export default function CardPlayer({jugadorActivo, setJugadorActivo}){
           }}>
             <Box className="w-50">
               <div className='p-absolute f-col align-center' style={{top:'-8px',left:'89px', gap:'9px'}}>
-                <div style={{fontSize:'1.6em',borderBottom:"2px solid #13131330;"}}>
-                  { player.puntuacion }
+                <div style={{fontSize:'1.6em',borderBottom:"2px solid #13131330"}}>
+                  { player.score }
                 </div>
-                { player.puntuacion && <div> { displayName(player.nombre).pre } </div> }
+                { player.score && <div> { player.pos} </div> }
                 <img src={`${process.env.PUBLIC_URL}/img/arg.png`} alt="logoCiber" style={{objectFit:'cover', width:'1.8em'}}/>
                 <img src={`${process.env.PUBLIC_URL}/img/logoCiber.png`} alt="logoCiber" style={{objectFit:'cover', width:'2.2em'}}/>
               </div>
   
-              { player.puntuacion && <img src={`${process.env.PUBLIC_URL}/img/user.png`} style={{marginLeft:'43px', width:'194px'}} alt="userImage"/> }
-              <div className='nombre'> { displayName(player.nombre).name } </div>
+              { player.score && <img src={`${process.env.PUBLIC_URL}/img/user.png`} style={{marginLeft:'43px', width:'194px'}} alt="userImage"/> }
+              <div className='nombre'> { player.nombre.toUpperCase() } </div>
             </Box>
             
   
@@ -79,7 +68,7 @@ export default function CardPlayer({jugadorActivo, setJugadorActivo}){
               </div>
             </Box>
           </Box>
-          <img className='w-95' src={`${process.env.PUBLIC_URL}/img/cards/${player.image}.png`} alt="card"/>
+          <img className='w-95' src={`${process.env.PUBLIC_URL}/img/cards/${player.image || "cardGold"}.png`} alt="card"/>
         </Box>
       </Collapse>
     )

@@ -270,6 +270,14 @@ h1,h2,h3,.title {
   transform: none !important;
 }
 
+.MuiSelect-select{
+  padding: 0 !important;
+  color: var(--colorGold) !important;
+}
+fieldset{
+  border: none !important;  
+}
+
 .circularProgress {
 	position: relative;
   height: 100%;
