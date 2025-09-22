@@ -196,6 +196,14 @@ h1,h2,h3,.title {
   border-bottom: 2px solid #FFFFFF50;
 }
 
+.cardHeader input{
+  border-left: 3px solid #FFFFFF50;
+  background: linear-gradient(90deg, #00000050, transparent 50%);
+  width: 100%;
+  padding: 5px 5px 5px 1em;
+  border-radius: 5px;
+}
+
 .MuiCard-root .cardContent {
   padding: 0.5em;
 }
@@ -301,6 +309,10 @@ fieldset{
 }
 .circularProgress .MuiTypography-root { font-size: 0.9rem; }
 
+.perfect label, .perfect span, .perfect .contador-players circle{
+  color: #50d850 !important;
+}
+
 /*■■■ ■■ ■ CLASES PROPIAS ■ ■■ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 
 .z-1{ position:relative; z-index: 1; }
@@ -367,6 +379,9 @@ fieldset{
 .f-gap { display: flex; gap: 0.3em !important; }
 .f-gap-1{ gap: 1em !important; }
 .f-gap-2{ gap: 2em !important; }
+.f-wrap{
+  flex-wrap: wrap;
+}
 
 .flex-1{ flex: 1 !important; }
 .flex-2{ flex: 2 !important; }
@@ -621,6 +636,13 @@ fieldset{
   cursor: pointer;
 }
 
+.container-result{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 250px;
+}
+
 .custom-btn{
   height: 8em;
   width: 25em;
@@ -628,7 +650,7 @@ fieldset{
   text-align: start;
   flex-direction: column;
   padding: 6px 10px;
-  background: linear-gradient(161deg, #080a09cc 50%, #595959 150%);
+  background: linear-gradient(161deg, #080a09f0 50%, #595959 150%);
   backdrop-filter: blur(2px);
   color: white;
   overflow: hidden;
@@ -655,14 +677,34 @@ fieldset{
   position: absolute;
   right: 0;
   top: -22%;
-  opacity: 0.7;
+}
+.custom-btn svg{
+  color: #FFFFFFb0;
+  transition: all 0.3s ease-in-out;
+  height: 90%;
+  width: fit-content;
+  position: absolute;
+  right: 15px;
+}
+
+.custom-btn:hover svg{
+  color: var(--colorGold);
+  transform: scale(1.2);
 }
 
 .custom-btn:hover{
-  background: linear-gradient(161deg, #25210fcc 50%, #595959 150%);
+  background: linear-gradient(161deg, #080a09f0, black);
 }
 .custom-btn:hover img{
   transform: scale(1.2);
+}
+
+.copy-btn{
+  color: var(--colorGold) !important;
+  border: 3px solid var(--colorGold) !important;
+  scale: 1.2;
+  position: absolute !important;
+  top: 32px;
 }
 
 .card-player{
@@ -674,6 +716,13 @@ fieldset{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.snacky .MuiPaper-root{ 
+  background-color: #418948;
+  color: var(--colorGold);
+  font-family: "DefaultFont", sans-serif;
+  font-size: 1.2em;
 }
 
 @keyframes appear{
@@ -688,25 +737,6 @@ fieldset{
     opacity: 1;
     transform: translateX(0);
   }
-}
-
-#balance_label{
-  position: absolute;
-  top: -5em;
-  background: repeating-linear-gradient(45deg, #3d7131, #264044 160px);
-  border-radius: 0.5em;
-  border: 3px solid;
-  color: var(--colorD);
-  font-weight: bold;
-  font-size: 1.5em;
-  filter: drop-shadow(2px 4px 6px black);
-  width: 100%;
-  padding: 0.6em 0;
-}
-#balance_label.perfect{
-  color: var(--fontLight);
-  background: repeating-linear-gradient(45deg, gold, var(--colorGold) 150px);
-  filter: drop-shadow(2px 4px 6px var(--colorGold)) !important;
 }
 
 input{
@@ -740,9 +770,19 @@ input{
   padding: 2em;
   color: #ffe347;
 }
-
 .contador-players label{
   font-size: 4.5em;
+}
+.contador-players .MuiCircularProgress-root{
+  position: absolute;
+  z-index: -1;
+}
+.contador-players circle{
+  color: #ffe347;
+}
+
+.container-equipos .MuiCard-root{
+  max-width: 450px;
 }
 
 @media (max-width: 768px) {
@@ -759,6 +799,14 @@ input{
   .container-equipos .cardContent .dataList{
     max-height: 7em;
     overflow: auto;
+  }
+
+  .container-result, .MuiCircularProgress-root{
+    height: 250px !important;
+    width: 250px !important;
+  }
+  .contador-players label{
+    font-size: 3.5em;
   }
 
   .container-equipos .MuiPaper-root{
@@ -840,5 +888,9 @@ input{
 
   #FUT_logo img{
     width: 90vw;
+  }
+
+  .custom-btn{
+    height: 65px;
   }
 }

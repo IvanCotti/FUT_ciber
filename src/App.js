@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Box, Card, Collapse, Grow } from '@mui/material';
+import { Box, Card, Collapse, Grow, CircularProgress, IconButton, Snackbar } from '@mui/material';
 import { 
   Person as JugadorIcon,
+  Shuffle as RandomIcon,
+  CompareArrows as CompareIcon,
+  ArrowBack as BackIcon,
+  ContentCopy as CopyIcon,
+  CheckCircle as CheckIcon
 } from '@mui/icons-material';
-
 import CardPlayer from "./components/CardPlayer"
 import PlayersList from "./components/PlayersList"
 
 export default function App() {
   const [equipos, setEquipos] = useState(null)
-  const [balanced, setBalanced] = useState('')
+  const [balanced, setBalanced] = useState(0)
+  const [copied, setCopied] = useState(false);
   
   const [jugadorActivo, setJugadorActivo] = useState(null)
   
@@ -37,24 +42,41 @@ export default function App() {
   },[])
 
   useEffect(() => {
-    if(equipos !== null){
-      const prom1 = equipos[0].promedio
-      const prom2 = equipos[1].promedio
-      if(prom1 !== null || prom2 !== null){
-        if(prom1 === prom2) {
-          setBalanced('Perfectamente Balanceado')
-        } else if(Math.abs(prom1 - prom2) <= 1) {
-          setBalanced('Balanceado')
-        } else if(Math.abs(prom1 - prom2) <= 2) {
-          setBalanced('No Muy Balanceado')
-        } else {
-          setBalanced('')
-        }
+    if (equipos !== null) {
+      const prom1 = equipos[0].promedio;
+      const prom2 = equipos[1].promedio;
+
+      if (prom1 !== null && prom2 !== null) {
+        const min = Math.min(prom1, prom2);
+        const max = Math.max(prom1, prom2);
+
+        const indiceBalanceo = ((min / max) * 100).toFixed(2);
+        setBalanced(indiceBalanceo);
       } else {
-        setBalanced('')
+        setBalanced(0);
       }
     }
   }, [equipos]);
+
+  const copiarAlPortapapeles = () => {
+    const iconos = ["🟥", "🟦"];
+
+    const texto = equipos
+      .map((equipo, idx) => {
+        const jugadores = equipo.lista
+          .map((jugador) => `- ${jugador.nombre}`)
+          .join("\n");
+        return `${iconos[idx]} ${equipo.nombre}\n${jugadores}`;
+      })
+      .join("\n\n");
+
+    navigator.clipboard.writeText(texto).then(() => {
+      setCopied(true)
+      setTimeout(() => {
+        setCopied(false)
+      }, 2000);
+    });
+  };
 
   const generarEquipos = (filtro = false) => {
     jugadores.sort(() => 0.5 - Math.random());
@@ -120,20 +142,34 @@ export default function App() {
 
         <Collapse in={equipos !== null} className='p-relative'>
 
-          <Grow in={ balanced !== '' } unmountOnExit>
-            <Box id='balance_label' className={`${balanced[0] === 'P' ? 'perfect ':''}`}>
-              { balanced }
-            </Box>
-          </Grow>
+          {balanced !== 0 &&
+            <div className={balanced === "100.00" ? 'perfect container-result' : 'container-result'}>
+              <center className="contador-players align-center justify-center">
+                <label>{balanced}%</label>
+                <CircularProgress size="300px" variant="determinate" value={balanced}/>
+                <span style={{fontSize: "2em"}}>
+                  Balanceado
+                </span>
+                <IconButton className='copy-btn' onClick={copiarAlPortapapeles}>
+                  <Grow in={!copied}>
+                    <CopyIcon/>
+                  </Grow>
+                  <Grow in={copied} className='p-absolute' sx={{scale: "2"}}>
+                    <CheckIcon/>
+                  </Grow>
+                </IconButton>
+              </center>
+            </div>
+          }
 
           {/* ■■■■■■■■■■■■■■■■■■ Tablas ■■■■■■■■■■■■■■■■■■ */}
-          <div className='container-equipos f-row f-gap'>
+          <div className='container-equipos f-row f-gap justify-center'>
           {
             equipos && equipos.map((equipo, num) => (
               <Card className="w-50" sx={{minHeight: '10em'}} key={num}>
                 <div className='cardHeader justify-space-between'>
                   <input type='text' value={ equipo.nombre } onChange={(e) => handleEquipoNombre(num, e.target.value)}></input>
-                  <span>{ equipo.promedio }</span>
+                  <span className='px-1'>{ equipo.promedio }</span>
                 </div>
                 <div className='cardContent'>
                   <div className='dataList h-100'>
@@ -160,24 +196,30 @@ export default function App() {
           </Box>
         </Grow>
 
-        {/* ■■■■■■■■■■■■■■■■■■ Lista de Jugadores MODAL ■■■■■■■■■■■■■■■■■■ */}
-        <PlayersList jugadores={jugadores} setJugadores={setJugadores} showList={showJugadoresList} setShow={setShowJugadoresList}/>
-
         {/* ■■■■■■■■■■■■■■■■■■ Botonera ■■■■■■■■■■■■■■■■■■ */}
         <Box className='botonera f-col f-gap mt-2 pa-1' sx={{margin: "0 auto"}}>
 
-          <div className='f-row f-gap'>
+          <div className='f-row f-gap f-wrap justify-center'>
             <Box className="custom-btn btn-3" onClick={()=>generarEquipos(true)}>
               <div className='name'> Generar Equipos </div>
               <section> En base a media de Jugadores </section>
-              <img src={`${process.env.PUBLIC_URL}/img/team.png`} alt="fondo"/>
+              <CompareIcon/>
             </Box>
             <Box className="custom-btn btn-3" onClick={()=>generarEquipos(false)}>
               <div className='name'> Aleatorio</div>
               <section> Seleccion al azar </section>
-              <img src={`${process.env.PUBLIC_URL}/img/team2.png`} alt="fondo"/>
+              <RandomIcon/>
             </Box>
+            { equipos !== null &&
+              <Box className='custom-btn' onClick={()=>setEquipos(null)}>
+                <div className='name'> Atras </div>
+                <section>Volver al Menu</section>
+                <BackIcon/>
+              </Box>
+            }
           </div>
+
+          
 
           { equipos === null &&
             <div className='f-row f-gap'>
@@ -191,18 +233,21 @@ export default function App() {
         </Box>
       </Box>
 
-      {/* ■■■■■■■■■■■■■■■■■■ Atras ■■■■■■■■■■■■■■■■■■ */}
-      <Grow in={equipos !== null} unmountOnExit className='p-absolute w-100' sx={{bottom:'40px'}}>
-        <Box className='f-row justify-center pa-2'>
-          <Box className='custom-btn' onClick={()=>setEquipos(null)}>
-            <div className='name'> Atras </div>
-            <section>Volver al Menu</section>
-          </Box>
-        </Box>
-      </Grow>
+      <Snackbar
+        open={copied}
+        className='snacky'
+        anchorOrigin={{horizontal: "center", vertical: "top"}}
+        message={
+        <div className='d-flex align-center f-gap'>
+          <CheckIcon/> <b>Equipos Guardados</b> en el Portapapeles
+        </div>}
+      />
 
       {/* ■■■■■■■■■■■■■■■■■■ Carta de Jugador ■■■■■■■■■■■■■■■■■■ */}
       <CardPlayer jugadorActivo={jugadorActivo} setJugadorActivo={setJugadorActivo}/>
+
+      {/* ■■■■■■■■■■■■■■■■■■ Lista de Jugadores MODAL ■■■■■■■■■■■■■■■■■■ */}
+      <PlayersList jugadores={jugadores} setJugadores={setJugadores} showList={showJugadoresList} setShow={setShowJugadoresList}/>
       
     </center>
   )

@@ -105,7 +105,7 @@ export default function PlayersList({jugadores, showList, setShow, setJugadores}
                     editJugadores.map((j, i) => (
 
                       <section key={'user'+i} className='f-row p-relative pa-05 justify-space-between' ref={editJugadores.length - 1 === i ? ultimoPlayer : null}>
-                        <div>
+                        <div className='d-flex'>
                           <input style={{width:'2em'}} className='mr-1' type='number' value={j.score} onChange={(e) => handleInput(i, e.target.value, true)}></input>
                           <Select style={{width:'5em'}} className='mr-1' value={j.pos} onChange={(e) => handlePos(i, e.target.value)}>
                             { posiciones.map((pos) => (
