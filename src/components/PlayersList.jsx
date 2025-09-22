@@ -24,6 +24,7 @@ const posiciones = [
 export default function PlayersList({jugadores, showList, setShow, setJugadores}){
   const ultimoPlayer = useRef(null);
   const [editJugadores, setEditJugadores] = useState(null);
+  const [newPlayer, setNewPlayer] = useState(false);
 
   useEffect(()=>{
     if(showList){
@@ -35,7 +36,7 @@ export default function PlayersList({jugadores, showList, setShow, setJugadores}
     if (ultimoPlayer.current) {
       ultimoPlayer.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [editJugadores]);
+  }, [newPlayer]);
 
   const sumarJugador = () => {
     const nuevoJugador = {
@@ -46,6 +47,10 @@ export default function PlayersList({jugadores, showList, setShow, setJugadores}
     }
     let nuevosJugadores = [...editJugadores, nuevoJugador]
     setEditJugadores(nuevosJugadores)
+    setNewPlayer(true)
+    setTimeout(() => {
+      setNewPlayer(false)
+    }, 500);
   }
 
   const calcularCard = (media) => {
