@@ -1,0 +1,8 @@
+[build]
+  command = "pnpm run build"
+  publish = "build" # usa "dist" si tu proyecto es con Vite
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--version"
+  PNPM_VERSION = "9.0.0"
